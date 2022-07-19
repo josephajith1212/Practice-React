@@ -1,6 +1,5 @@
 import React from 'react'
-import Setup from './concepts/2-useEffect/setup/3-useEffect-fetch-data'
-// import Setup from './concepts/2-useEffect/final/3-useEffect-fetch-data'
+import Setup from './concepts/3-conditional-rendering/setup/3-show-hide'
 
 function App() {
   return (
