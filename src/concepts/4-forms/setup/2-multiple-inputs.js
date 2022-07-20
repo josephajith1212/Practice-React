@@ -7,20 +7,23 @@ import React, { useState } from 'react';
 // dynamic object keys
 
 const ControlledInputs = () => {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+  const [person, setPerson] = useState({name:'',email:'',age:'', id:''})
   const [people, setPeople] = useState([]);
+
+  const handleInputChange = (e) => {
+    const inputName = e.target.name
+    const inputValue = e.target.value
+    setPerson((prevState) => {
+      return {...prevState, [inputName]: inputValue}
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstName && email) {
-      const person = { id: new Date().getTime().toString(), firstName, email };
-      console.log(person);
-      setPeople((people) => {
-        return [...people, person];
-      });
-      setFirstName('');
-      setEmail('');
+    if (person.name && person.email && person.age) {
+      setPerson((prevState) => {return {...prevState, id:Date.now()}})
+      setPeople((prevState) => [...prevState, person])
+      setPerson({name: '', email: '', age: ''})
     } else {
       console.log('empty values');
     }
@@ -30,13 +33,13 @@ const ControlledInputs = () => {
       <article>
         <form className='form' onSubmit={handleSubmit}>
           <div className='form-control'>
-            <label htmlFor='firstName'>Name : </label>
+            <label htmlFor='name'>Name : </label>
             <input
               type='text'
-              id='firstName'
-              name='firstName'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              id='name'
+              name='name'
+              value={person.name}
+              onChange={handleInputChange}
             />
           </div>
           <div className='form-control'>
@@ -45,17 +48,27 @@ const ControlledInputs = () => {
               type='email'
               id='email'
               name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={person.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className='form-control'>
+            <label htmlFor='age'>Age : </label>
+            <input
+              type='age'
+              id='age'
+              name='age'
+              value={person.age}
+              onChange={handleInputChange}
             />
           </div>
           <button type='submit'>add person</button>
         </form>
-        {people.map((person, index) => {
-          const { id, firstName, email } = person;
+        {people.map((person) => {
+          const { id, name, email, age } = person;
           return (
-            <div className='item' key={id}>
-              <h4>{firstName}</h4>
+            <div className='item' key={Number(id)}>
+              <h4>{`${name} (${age})`}</h4>
               <p>{email}</p>
             </div>
           );
