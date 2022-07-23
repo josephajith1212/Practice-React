@@ -1,5 +1,5 @@
 import React from 'react'
-import Setup from './concepts/5-useRef/setup/1-useRef-basics'
+import Setup from './concepts/6-useReducer/setup'
 
 function App() {
   return (
